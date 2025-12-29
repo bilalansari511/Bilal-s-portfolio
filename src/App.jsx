@@ -9,9 +9,6 @@ function App() {
   return (
     <>
    <Layout/>
-   <About/>
-   <Projects/>
-   <Contact/>
     </>
   )
 }
