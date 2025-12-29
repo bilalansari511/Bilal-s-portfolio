@@ -10,11 +10,15 @@ function Home({ isDark }) {
 
         {/* LEFT CONTENT */}
         <div>
-          {/* Badge */}
-          <span className="inline-block mb-4 px-4 py-1 text-sm rounded-full
-            bg-yellow-400 text-black font-semibold">
-             Welcome to my portfolio
-          </span>
+          {/* Badge → About Link */}
+          <Link
+            to="/about"
+            className="inline-block mb-4 px-4 py-1 text-sm rounded-full
+            bg-yellow-400 text-black font-semibold
+            hover:bg-yellow-500 transition cursor-pointer"
+          >
+            Welcome to my portfolio
+          </Link>
 
           {/* Heading */}
           <h1 className="text-4xl md:text-5xl font-extrabold leading-tight">
@@ -46,7 +50,7 @@ function Home({ isDark }) {
               font-semibold shadow-lg hover:bg-yellow-500
               transition transform hover:-translate-y-1"
             >
-               View Projects
+              View Projects
             </Link>
 
             <Link
