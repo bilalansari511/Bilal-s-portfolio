@@ -10,16 +10,11 @@ function Layout() {
   const [isDark, setIsDark] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const navLinkClass = ({ isActive }) =>
-    `hover:text-yellow-300 transition ${
-      isActive ? "text-yellow-400" : ""
-    }`;
-
   return (
     <>
       {/* Navbar */}
       <nav
-        className={`sticky top-0 z-50 shadow-lg
+        className={`sticky top-0 z-50 shadow-lg relative
         ${isDark ? "bg-gray-900 text-white" : "bg-indigo-600 text-white"}`}
       >
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -31,14 +26,54 @@ function Layout() {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex gap-8 font-medium">
-            <NavLink to="/" className={navLinkClass}>Home</NavLink>
-            <NavLink to="/about" className={navLinkClass}>About</NavLink>
-            <NavLink to="/projects" className={navLinkClass}>Projects</NavLink>
-            <NavLink to="/contact" className={navLinkClass}>Contact</NavLink>
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                `hover:text-yellow-300 transition ${
+                  isActive ? "text-yellow-400" : ""
+                }`
+              }
+            >
+              Home
+            </NavLink>
+
+            <NavLink
+              to="/about"
+              className={({ isActive }) =>
+                `hover:text-yellow-300 transition ${
+                  isActive ? "text-yellow-400" : ""
+                }`
+              }
+            >
+              About
+            </NavLink>
+
+            <NavLink
+              to="/projects"
+              className={({ isActive }) =>
+                `hover:text-yellow-300 transition ${
+                  isActive ? "text-yellow-400" : ""
+                }`
+              }
+            >
+              Projects
+            </NavLink>
+
+            <NavLink
+              to="/contact"
+              className={({ isActive }) =>
+                `hover:text-yellow-300 transition ${
+                  isActive ? "text-yellow-400" : ""
+                }`
+              }
+            >
+              Contact
+            </NavLink>
           </div>
 
           {/* Right Section */}
           <div className="flex items-center gap-4">
+
             {/* Theme Toggle */}
             <button
               onClick={() => setIsDark(!isDark)}
@@ -52,7 +87,7 @@ function Layout() {
               onClick={() => setMenuOpen(!menuOpen)}
               className="md:hidden text-2xl"
             >
-              ☰
+              {menuOpen ? "✖" : "☰"}
             </button>
           </div>
         </div>
@@ -60,21 +95,31 @@ function Layout() {
         {/* Mobile Menu */}
         {menuOpen && (
           <div
-            className={`md:hidden px-6 pb-4 space-y-3 font-medium
-            ${isDark ? "bg-gray-800" : "bg-indigo-700"}`}
+            className={`md:hidden absolute top-full left-0 w-full shadow-lg
+            ${isDark ? "bg-gray-900 text-white" : "bg-indigo-700 text-white"}`}
           >
-            <NavLink onClick={() => setMenuOpen(false)} to="/" className={navLinkClass}>
-              Home
-            </NavLink>
-            <NavLink onClick={() => setMenuOpen(false)} to="/about" className={navLinkClass}>
-              About
-            </NavLink>
-            <NavLink onClick={() => setMenuOpen(false)} to="/projects" className={navLinkClass}>
-              Projects
-            </NavLink>
-            <NavLink onClick={() => setMenuOpen(false)} to="/contact" className={navLinkClass}>
-              Contact
-            </NavLink>
+            <ul className="flex flex-col divide-y divide-gray-700 font-medium">
+
+              {["/", "/about", "/projects", "/contact"].map((path, index) => {
+                const labels = ["Home", "About", "Projects", "Contact"];
+                return (
+                  <li key={path}>
+                    <NavLink
+                      to={path}
+                      onClick={() => setMenuOpen(false)}
+                      className={({ isActive }) =>
+                        `block px-6 py-4 transition
+                        hover:bg-yellow-400 hover:text-black
+                        ${isActive ? "bg-yellow-400 text-black" : ""}`
+                      }
+                    >
+                      {labels[index]}
+                    </NavLink>
+                  </li>
+                );
+              })}
+
+            </ul>
           </div>
         )}
       </nav>
